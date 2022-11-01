@@ -77,9 +77,19 @@ export class I18nModule implements OnModuleInit, NestModule {
       try {
         const hbs = await import('hbs');
         hbs.registerHelper('t', this.i18n.hbsHelper);
-        logger.log('Handlebars helper registered');
+        logger.log('hbs helper registered');
       } catch (e) {
         logger.error('hbs module failed to load', e);
+      }
+    }
+
+    if (this.i18nOptions.viewEngine == 'handlebars') {
+      try {
+        const handlebars = await import('handlebars');
+        handlebars.registerHelper('t', this.i18n.handlebarsHelper);
+        logger.log('Handlebars helper registered');
+      } catch (e) {
+        logger.error('handlebars module failed to load', e);
       }
     }
 

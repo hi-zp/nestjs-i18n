@@ -158,6 +158,19 @@ export class I18nService implements OnModuleDestroy {
     return this.t(key, { lang, args });
   };
 
+  public handlebarsHelper: Handlebars.HelperDelegate = (
+    key: string,
+    args: any,
+    options: any,
+  ) => {
+    if (!options) {
+      options = args;
+    }
+
+    const lang = options.lookupProperty(options.data.root, 'i18nLang');
+    return this.t(key, { lang, args });
+  };
+
   private translateObject(
     key: string,
     translations: I18nTranslation | string,
